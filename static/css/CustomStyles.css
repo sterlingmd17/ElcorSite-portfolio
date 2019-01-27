@@ -1,0 +1,16 @@
+.navbar .navbar-light .navbar-expand-lg .navigation-clean .no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+  padding-right: 0;
+  padding-left: 0;
+
+fas fa-check {
+  padding-right: 20px;
+}
+
+.features-icons.bg-light.text-center {
+}
+
+.img-fluid, .img-thumbnail {
+  max-width: 75%;
+}
