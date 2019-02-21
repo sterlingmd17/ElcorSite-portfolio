@@ -2,16 +2,20 @@
 
     {% block content %}
 
-    <header class="d-block masthead text-white text-center" style="width: 100%;height: auto;background-image: url('static/img/banner.jpg');background-size: cover;background-repeat: no-repeat;">
+    <header id="header-background" class="d-block masthead text-white text-center">
         <div class="col-xl-9 mx-auto">
-            <h1 class="mb-5">Managed IT and SQL Reporting Solution</h1>
+            <h1>Managed IT and SQL Reporting Solution</h1>
         </div>
     </header>
-    <section class="features-icons text-center">
-        <div class="container">
+
+    <section class="features-icons text-center pt-0">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col"><img src="static/img/elcorlogo.png"></div>
+            </div>
             <div class="row justify-content-center">
-                <div class="col-md-6 offset-md-1 col-lg-3 offset-lg-1 col-xl-3 offset-xl-1 m-4 border rounded bg-light shadow-lg">
-                    <div class="features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                <div class="col-md-6 offset-md-2 col-lg-3 offset-lg-1 col-xl-3 offset-xl-1 m-4 border border-dark rounded bg-light shadow-lg">
+                    <div class="features-icons-item mb-5 pb-2 mb-lg-0 mb-lg-3">
                         <div class="d-flex features-icons-icon"><i class="icon-screen-desktop m-auto text-primary"></i></div>
                         <h3>IT Support</h3>
                     </div>
@@ -22,21 +26,19 @@
                         <li class="text-left"><span class="fa-li"><i class="fas fa-check"></i></span>Process Automation</li>
                     </ul>
                 </div>
-                <div class="col-md-6 offset-md-1 col-lg-3 offset-lg-1 col-xl-3 offset-xl-1 m-4 border rounded bg-light shadow-lg">
+                <div class="col-md-6 offset-md-2 col-lg-3 offset-lg-1 col-xl-3 offset-xl-1 m-4 border border-dark rounded bg-light shadow-lg">
                     <div class="features-icons-item mb-5 mb-lg-0 mb-lg-3">
-                        <div class="d-flex features-icons-icon">
-                            <i class="icon-screen-desktop m-auto text-primary"></i>
-                        </div>
-                        <h3>IT Support</h3>
+                        <div class="d-flex features-icons-icon"><i class="icon-screen-desktop m-auto text-primary"></i></div>
+                        <h3>Manage your IT infrastructure</h3>
                     </div>
                     <ul class="fa-ul">
-                        <li class="text-left"><span class="fa-li"><i class="fas fa-check"></i></span>Server/workstation support</li>
-                        <li class="text-left"><span class="fa-li"><i class="fas fa-check"></i></span>Hardware/Software reseller</li>
+                        <li class="text-left"><span class="fa-li"><i class="fas fa-check"></i></span>Server monitoring and reporting</li>
+                        <li class="text-left"><span class="fa-li"><i class="fas fa-check"></i></span>Best practice recommendations</li>
                         <li class="text-left"><span class="fa-li"><i class="fas fa-check"></i></span>Contract/on-call options</li>
                         <li class="text-left"><span class="fa-li"><i class="fas fa-check"></i></span>Process Automation</li>
                     </ul>
                 </div>
-                <div class="col-md-6 offset-md-1 col-lg-3 offset-lg-1 col-xl-3 offset-xl-1 m-4 border rounded bg-light shadow">
+                <div class="col-md-6 offset-md-1 col-lg-3 offset-lg-1 col-xl-3 offset-xl-1 m-4 border border-dark rounded bg-light shadow">
                     <div class="features-icons-item mb-5 mb-lg-0 mb-lg-3">
                         <div class="d-flex features-icons-icon"><i class="icon-layers m-auto text-primary"></i></div>
                         <h3>SQL Reporting</h3>
@@ -60,7 +62,7 @@
                 <div class="col-lg-6 my-auto order-lg-1 showcase-text">
                     <h2>Simplifying Technology Since 1996</h2>
                     <p class="lead mb-0">Competition is fierce and information technology plays a crucial role in staying a step ahead and growing your business. Leave the confusing world of IT to the Elcor Technologies specialists and certified technicians so you can
-                        concentrate on your core business. We partner with small and large businesses to provide 24/7 maintenance and innovative IT growth solutions for your business.&nbsp;<a href="/contact">Contact us</a>&nbsp;today
+                        concentrate on your core business. We partner with small and large businesses to provide 24/7 maintenance and innovative IT growth solutions for your business.&nbsp;<a class="font-weight-bold" href="/contact">Contact us</a>&nbsp;today
                         for your IT solution.&nbsp;</p>
                 </div>
             </div>

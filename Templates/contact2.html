@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <div class="container-fluid">
+        <h1>Contact Information Flash 'success' message after submit</h1>
+        <hr>
+        <form id="contactForm" method="post">
+            <input class="form-control" type="hidden" name="subject" value="Elcorinc.com Contact Form">
+            <input class="form-control" type="hidden" name="to" value="Support@Elcorinc.com">
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div id="successfail">***Put alert message here and make dismissable***</div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-12 col-md-6" id="message">
+                    <h2 class="h4"><i class="fa fa-envelope"></i> Contact Us<small><small class="required-input">&nbsp;(*required)</small></small>
+                    </h2>
+                    <div class="form-group"><label for="from-name">Name</label><span class="required-input">*</span>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user-o"></i></span></div>
+                            <input class="form-control" type="text" name="name" required="" placeholder="Full Name" id="from-name">
+                        </div>
+                    </div>
+                    <div class="form-group"><label for="from-email">Email</label><span class="required-input">*</span>
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-envelope-o"></i></span></div>
+                            <input class="form-control" type="text" name="email" required="" placeholder="Email Address" id="from-email">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                            <div class="form-group"><label for="from-phone">Phone</label><span class="required-input">*</span>
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-phone"></i></span></div>
+                                    <input class="form-control" type="text" name="phone" required="" placeholder="Primary Phone" id="from-phone"></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                            <div class="form-group"><label for="from-calltime">Best Time to Call</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></div>
+                                    <select class="form-control" name="call time" id="from-calltime">
+                                        <optgroup label="Best Time to Call">
+                                            <option value="Morning">Morning</option>
+                                            <option value="Afternoon">Afternoon</option>
+                                            <option value="Evening">Evening</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group"><label for="from-comments">Comments</label>
+                        <textarea class="form-control" rows="5" name="comments" placeholder="Enter Comments" id="from-comments"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col"><button class="btn btn-primary btn-block" type="reset"><i class="fa fa-undo"></i> Reset</button></div>
+                            <div class="col"><button class="btn btn-primary btn-block" type="submit">Submit <i class="fa fa-chevron-circle-right"></i></button></div>
+                        </div>
+                    </div>
+                    <hr class="d-flex d-md-none">
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-row">
+                        <div class="col-sm-6 col-md-12 col-lg-6 text-center">
+                            <h2 class="h4"><i class="fa fa-user"></i> Our Info</h2>
+                            <div><span>Support@Elcorinc.net</span></div>
+                            <div><span>360-887-8777</span></div>
+                            <hr class="d-sm-none d-md-block d-lg-none">
+                        </div>
+                        <div class="col-sm-6 col-md-12 col-lg-6 text-center">
+                            <h2 class="h4"><i class="fa fa-location-arrow"></i> Our Address</h2>
+                            <div><span>611 NW 184th St.</span></div>
+                            <div><span>Ridgefield, WA 98642</span></div>
+                            <hr class="d-sm-none">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
