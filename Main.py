@@ -1,8 +1,7 @@
 from flask import Flask, request, redirect, render_template, session, flash
-from functools import wraps
+from App import app, recaptcha
 import requests
 import json
-from App import app, recaptcha
 
 @app.route('/', methods=['GET'])
 def index():
