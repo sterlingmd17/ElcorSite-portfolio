@@ -1,15 +1,10 @@
 Flask==1.0.2
-Click==7.0
+Jinja2==2.10
 Flask-Admin==1.5.2
 Flask-ReCaptcha==0.4.2
 Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
-Jinja2==2.10
-MarkupSafe==1.1.0
 PyMySQL==0.9.3
 SQLAlchemy==1.2.15
 WTForms==2.2.1
-Werkzeug==0.14.1
-conda==4.5.4
-pip==10.0.1
 requests==2.18.4
