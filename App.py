@@ -12,3 +12,6 @@ app.secret_key= "elcor"
 recaptcha = ReCaptcha(app=app)
 db = SQLAlchemy(app)
 
+@app.route("/")
+def hello():
+    return "hello!"
