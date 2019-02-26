@@ -1,18 +1,18 @@
 from flask import Flask, request, redirect, render_template, session, flash
-from App import app, recaptcha
+from App import app as application, recaptcha
 import requests
 import json
 
-@app.route('/', methods=['GET'])
+@application.route('/', methods=['GET'])
 def index():
     return render_template("index.html")
 
 
-@app.route('/reasons', methods=['GET'])
+@application.route('/reasons', methods=['GET'])
 def reasons():
     return render_template("reasons.html")
 
-@app.route('/contact', methods=['GET', 'POST'])
+@application.route('/contact', methods=['GET', 'POST'])
 def contact():
 
     if request.method == 'POST':
@@ -55,4 +55,4 @@ def contact():
 
 
 if __name__ == '__main__':
-    app.run()
+    application.run()
