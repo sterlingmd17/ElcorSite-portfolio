@@ -1,18 +1,18 @@
 from flask import Flask, request, redirect, render_template, session, flash
-from App import app as application, recaptcha
+from App import app, recaptcha
 import requests
 import json
 
-@application.route('/', methods=['GET'])
+@app.route('/', methods=['GET'])
 def index():
     return render_template("index.html")
 
 
-@application.route('/reasons', methods=['GET'])
+@app.route('/reasons', methods=['GET'])
 def reasons():
     return render_template("reasons.html")
 
-@application.route('/contact', methods=['GET', 'POST'])
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
 
     if request.method == 'POST':
