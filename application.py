@@ -14,5 +14,5 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = '6LdsiZIUAAAAAN4LVoj1xQxyMmFyV_AA6NFwGh0B'
 app.secret_key= "elcor"
 recaptcha = ReCaptcha(app=app)
 db = SQLAlchemy(app)
-enable(app)
+enable()
 
