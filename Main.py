@@ -1,4 +1,3 @@
-from flask import Flask, request, redirect, render_template, session, flash
 from application import app, recaptcha
 import requests
 import json
