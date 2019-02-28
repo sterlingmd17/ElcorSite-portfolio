@@ -8,4 +8,3 @@ PyMySQL==0.9.3
 SQLAlchemy==1.2.15
 requests==2.18.4
 Flask-Gunicorn==0.1.1
-gunicorn==19.9.0
