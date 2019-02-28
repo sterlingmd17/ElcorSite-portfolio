@@ -5,6 +5,7 @@ import json
 from flask import Flask
 #from flask_sqlalchemy import SQLAlchemy
 from flask_recaptcha import ReCaptcha
+from wfastcgi import *
 
 
 
@@ -51,10 +52,6 @@ def contact():
 
 
 
-
-
-
-
 # For better contact page.
 #@app.route('/contact2', methods=['GET', 'POST'])
 #def contact2():
@@ -66,8 +63,6 @@ def contact():
 #        form_comments = request.form['comments']
 #
 #    return render_template("contact.html")
-
-
 
 
 if __name__ == '__main__':
