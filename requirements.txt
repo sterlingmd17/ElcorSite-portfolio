@@ -1,5 +1,6 @@
 Flask==1.0.2
 Jinja2==2.10
+Flask-Mail==0.9.1
 Flask-Admin==1.5.2
 Flask-ReCaptcha==0.4.2
 Flask-SQLAlchemy==2.3.2
@@ -7,4 +8,4 @@ Flask-WTF==0.14.2
 PyMySQL==0.9.3
 SQLAlchemy==1.2.15
 requests==2.18.4
-Flask-Mail==0.9.1
+
