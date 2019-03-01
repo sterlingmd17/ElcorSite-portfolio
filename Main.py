@@ -16,8 +16,6 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = '6LdyFI4UAAAAACkoL9_JHuTE15huwB_BMvHX58aa'
 app.config['MAIL_SERVER'] = 'elcorinc-net.mail.protection.outlook.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-#app.config['MAIL_USERNAME'] = 'sterlingd@elcorinc.net'
-#app.config['MAIL_PASSWORD'] = 'Laura1994$'
 
 mail = Mail(app)
 app.secret_key= "elcor"
