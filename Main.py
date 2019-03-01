@@ -2,26 +2,28 @@ from flask import Flask, request, redirect, render_template, session, flash
 from flask_mail import Mail, Message
 from flask_sqlalchemy import SQLAlchemy
 from flask_recaptcha import ReCaptcha
+from werkzeug.security import check_password_hash
 import requests
 import json
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
+app.config['DEBUG'] = False
+app.config['RECAPTCHA_ENABLED'] = True
 #app.config['SQLALCHEMY_DATABASE_URI']='mysql://elcor:elcor@localhost:3306/elcor'
 #app.config['SQLALCHEMY_ECHO'] = True
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6LdsiZIUAAAAAJybnDIelA5soDfns61EHnTrN2Ha'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6LdsiZIUAAAAAN4LVoj1xQxyMmFyV_AA6NFwGh0B'
-app.config['MAIL_SERVER'] = 'smtp.office365.com'
+app.config['MAIL_SERVER'] = 'elcorinc-net.mail.protection.outlook.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'sterlingd@elcorinc.net'
-app.config['MAIL_PASSWORD'] = 'Laura1994$'
+#app.config['MAIL_USERNAME'] = 'sterlingd@elcorinc.net'
+#app.config['MAIL_PASSWORD'] = 'Laura1994$'
 
 mail = Mail(app)
 app.secret_key= "elcor"
 recaptcha = ReCaptcha(app=app)
-db = SQLAlchemy(app)
-print(mail.connect())
+#db = SQLAlchemy(app)
+#print(mail.connect())
 
 
 @app.route('/', methods=['GET'])
@@ -40,19 +42,16 @@ def contact():
         google_response = json.loads(r.text)
 
         if google_response['success']:
-            form_name = request.form['name']
-            form_email = request.form['email']
-            form_message = request.form['message']
-            msg = Message('Contact from website', sender=form_email, recipients=['support@elcorinc.net'])
-            msg.body = form_message
+            contact_form = { 'name' : request.form['name'], 'email' : request.form['email'], 'message' : request.form['message']}
+            #form_email = request.form['email']
+            #form_message = request.form['message']
+            msg = Message('Contact from website', sender= contact_form['email'], recipients= 'support@elcorinc.net', body=contact_form['message'])
             mail.send(msg)
             flash('success')
-            print(google_response)
-            print(request.form)
             return render_template('contact.html')
 
         else:
-            flash('failed captcha')
+            flash('failed captcha, please retry.')
             return render_template('contact.html')
 
     return render_template('contact.html')
