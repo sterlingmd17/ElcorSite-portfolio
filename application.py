@@ -1,8 +1,9 @@
 from flask import Flask
+from Main import app
 from flask_sqlalchemy import SQLAlchemy
 from flask_recaptcha import ReCaptcha
 
-app = Flask(__name__)
+
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI']='mysql://elcor:elcor@localhost:3306/elcor'
 app.config['SQLALCHEMY_ECHO'] = True
