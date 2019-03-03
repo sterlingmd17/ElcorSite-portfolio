@@ -51,11 +51,11 @@ def contact():
             #form_message = request.form['message']
             msg = Message(subject='Contact from website', sender= contact_form['email'], recipients= ['support@elcorinc.net'], body=contact_form['message'])
             #mail.send(msg)
-            flash('success' + google_response)
+            flash('success')
             return render_template('contact.html')
 
         else:
-            flash('failed captcha, please retry.')
+            flash('failed captcha, please retry.' + google_response)
             return render_template('contact.html')
 
     return render_template('contact.html')
