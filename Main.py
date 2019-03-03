@@ -50,7 +50,6 @@ def contact():
             #form_email = request.form['email']
             #form_message = request.form['message']
             msg = Message(subject='Contact from website', sender= contact_form['email'], recipients= ['support@elcorinc.net'], body=contact_form['message'])
-            mail.connect()
             mail.send(msg)
             flash('success')
             return render_template('contact.html')
