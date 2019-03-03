@@ -41,7 +41,7 @@ def reasons():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
-        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data={'secret': app.config['RECAPTCHA_PRIVATE_KEY'],'response': request.form['g-recaptcha-response']})
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data={'secret': '6LdyFI4UAAAAACkoL9_JHuTE15huwB_BMvHX58aa', 'response': request.form['g-recaptcha-response']})
         google_response = json.loads(r.text)
         print(str(google_response))
 
