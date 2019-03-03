@@ -45,13 +45,13 @@ def contact():
         google_response = json.loads(r.text)
         print(google_response)
 
-        if google_response['success']:
+        if google_response['success'] == True:
             contact_form = { 'name' : request.form['name'], 'email' : request.form['email'], 'message' : request.form['message']}
             #form_email = request.form['email']
             #form_message = request.form['message']
             msg = Message(subject='Contact from website', sender= contact_form['email'], recipients= ['support@elcorinc.net'], body=contact_form['message'])
-            mail.send(msg)
-            flash('success')
+            #mail.send(msg)
+            flash('success' + google_response)
             return render_template('contact.html')
 
         else:
