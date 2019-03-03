@@ -43,7 +43,7 @@ def contact():
     if request.method == 'POST':
         r = requests.post('https://www.google.com/recaptcha/api/siteverify', data={'secret': app.config['RECAPTCHA_PRIVATE_KEY'],'response': request.form['g-recaptcha-response']})
         google_response = json.loads(r.text)
-        print(google_response)
+        print(str(google_response))
 
         if google_response['success'] == True:
             contact_form = { 'name' : request.form['name'], 'email' : request.form['email'], 'message' : request.form['message']}
@@ -55,7 +55,7 @@ def contact():
             return render_template('contact.html')
 
         else:
-            flash('failed captcha, please retry.' + google_response)
+            flash('failed captcha, please retry.' + str(google_response))
             return render_template('contact.html')
 
     return render_template('contact.html')
