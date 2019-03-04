@@ -8,14 +8,19 @@ import json
 
 app = Flask(__name__)
 app.config['DEBUG'] = False
-app.config['RECAPTCHA_ENABLED'] = False
+app.config['MAIL_DEBUG'] = False
+
+app.config['RECAPTCHA_ENABLED'] = True
 #app.config['SQLALCHEMY_DATABASE_URI']='mysql://elcor:elcor@localhost:3306/elcor'
 #app.config['SQLALCHEMY_ECHO'] = True
+
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6LdyFI4UAAAAALqiPp7HSOW4lxrRXB55M-8OWOON'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6LdyFI4UAAAAACkoL9_JHuTE15huwB_BMvHX58aa'
+
 app.config['MAIL_SERVER'] = 'elcorinc-net.mail.protection.outlook.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
 
 mail = Mail(app)
 app.secret_key= "elcor"
@@ -36,20 +41,21 @@ def reasons():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
-        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data={'secret': app.config['RECAPTCHA_PRIVATE_KEY'],'response': request.form['g-recaptcha-response']})
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data={'secret': '6LdyFI4UAAAAACkoL9_JHuTE15huwB_BMvHX58aa', 'response': request.form['g-recaptcha-response']})
         google_response = json.loads(r.text)
+        print(str(google_response))
 
-        if google_response['success']:
+        if google_response['success'] == True:
             contact_form = { 'name' : request.form['name'], 'email' : request.form['email'], 'message' : request.form['message']}
             #form_email = request.form['email']
             #form_message = request.form['message']
-            msg = Message('Contact from website', sender= contact_form['email'], recipients= 'support@elcorinc.net', body=contact_form['message'])
-            mail.send(msg)
+            msg = Message(subject='Contact from website', sender= contact_form['email'], recipients= ['support@elcorinc.net'], body=contact_form['message'])
+            #mail.send(msg)
             flash('success')
             return render_template('contact.html')
 
         else:
-            flash('failed captcha, please retry.')
+            flash('failed captcha, please retry.' + str(google_response))
             return render_template('contact.html')
 
     return render_template('contact.html')
