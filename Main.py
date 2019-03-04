@@ -8,7 +8,7 @@ import json
 
 app = Flask(__name__)
 app.config['DEBUG'] = False
-app.config['RECAPTCHA_ENABLED'] = True
+app.config['RECAPTCHA_ENABLED'] = False
 #app.config['SQLALCHEMY_DATABASE_URI']='mysql://elcor:elcor@localhost:3306/elcor'
 #app.config['SQLALCHEMY_ECHO'] = True
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6LdyFI4UAAAAALqiPp7HSOW4lxrRXB55M-8OWOON'
