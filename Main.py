@@ -6,8 +6,8 @@ from werkzeug.security import check_password_hash
 import requests
 import json
 
-app = Flask(__name__)
-app.config['DEBUG'] = False
+app = Flask(__name__, static_folder='static', static_url_path='')
+app.config['DEBUG'] = True
 app.config['MAIL_DEBUG'] = False
 
 app.config['RECAPTCHA_ENABLED'] = True
@@ -18,7 +18,7 @@ app.config['RECAPTCHA_PUBLIC_KEY'] = '6LdyFI4UAAAAALqiPp7HSOW4lxrRXB55M-8OWOON'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6LdyFI4UAAAAACkoL9_JHuTE15huwB_BMvHX58aa'
 
 app.config['MAIL_SERVER'] = 'elcorinc-net.mail.protection.outlook.com'
-app.config['MAIL_PORT'] = 587
+app.config['MAIL_PORT'] = 25
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
@@ -59,7 +59,6 @@ def contact():
             return render_template('contact.html')
 
     return render_template('contact.html')
-
 
 
 # For better contact page.
