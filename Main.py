@@ -7,7 +7,7 @@ import requests
 import json
 
 app = Flask(__name__, static_folder='static', static_url_path='')
-app.config['DEBUG'] = True
+app.config['DEBUG'] = False
 app.config['MAIL_DEBUG'] = False
 
 app.config['RECAPTCHA_ENABLED'] = True
@@ -25,8 +25,6 @@ app.config['MAIL_USE_SSL'] = False
 mail = Mail(app)
 app.secret_key= "elcor"
 recaptcha = ReCaptcha(app=app)
-#db = SQLAlchemy(app)
-#print(mail.connect())
 
 
 @app.route('/', methods=['GET'])
@@ -38,6 +36,8 @@ def index():
 def reasons():
     return render_template("reasons.html")
 
+
+@app.route('/contact-us', methods=['GET'])
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
@@ -47,18 +47,25 @@ def contact():
 
         if google_response['success'] == True:
             contact_form = { 'name' : request.form['name'], 'email' : request.form['email'], 'message' : request.form['message']}
-            #form_email = request.form['email']
-            #form_message = request.form['message']
             msg = Message(subject='Contact from website', sender= contact_form['email'], recipients= ['support@elcorinc.net'], body=contact_form['message'])
-            #mail.send(msg)
-            flash('success')
+            mail.send(msg)
+            flash('Success, we will respond within at least 24 hours.')
             return render_template('contact.html')
 
         else:
-            flash('failed captcha, please retry.' + str(google_response))
+            flash('failed to send, please retry or contact us at support@elcorinc.net')
             return render_template('contact.html')
 
     return render_template('contact.html')
+
+@app.route('/support', methods=['GET'])
+def support():
+    return render_template('support.html')
+
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html')
+
 
 
 # For better contact page.
