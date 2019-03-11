@@ -53,7 +53,7 @@ def contact():
             return render_template('contact.html')
 
         else:
-            flash('failed to send, please retry or contact us at support@elcorinc.net')
+            flash('failed to submit, please retry or contact us at support@elcorinc.net')
             return render_template('contact.html')
 
     return render_template('contact.html')

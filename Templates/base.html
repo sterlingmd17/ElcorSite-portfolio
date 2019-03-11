@@ -34,12 +34,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="nav navbar-nav border rounded-0 border-dark shadow mr-auto" id="dropdown-button">
-                <!--<li class="nav-item" role="presentation" data-bs-hover-animate="pulse">
-                    <a class="nav-link" href="#" data-bs-hover-animate="pulse" id="Nav-button" style="background-color: rgba(255,255,255,0);color: #ffffff;">Second Item</a>
+                <li class="nav-item" role="presentation" data-bs-hover-animate="pulse">
+                    <a class="nav-link" href="/" data-bs-hover-animate="pulse" id="Nav-button" style="background-color: rgba(255,255,255,0);color: #ffffff;">Home</a>
                 </li>
                 <li class="nav-item" role="presentation" data-bs-hover-animate="pulse">
-                    <a class="nav-link" href="#" data-bs-hover-animate="pulse" style="background-color: rgba(255,255,255,0);color: #ffffff;">Third Item</a>
-                </li>-->
+                    <a class="nav-link" href="/about" data-bs-hover-animate="pulse" style="background-color: rgba(255,255,255,0);color: #ffffff;">About Us</a>
+                </li>
                 <li class="nav-item" role="presentation" data-bs-hover-animate="pulse">
                     <a class="nav-link" href="/contact" data-bs-hover-animate="pulse" style="background-color: rgba(255,255,255,0);color: #ffffff;">Contact Us</a>
                 </li>
@@ -52,12 +52,10 @@
                     </div>
                 </li>-->
             </ul>
-            <span style="font-size: 4rem;">
-                <span style="color: crimson;">
-                    <a style="color:crimson;" href="/support"><i class="fas fa-user-friends mr-5" id="support-icon" data-bs-hover-animate="pulse"></i></a>
-                </span>
-            </span>
-        </div>
+            <div class="features-icons-item m-0" id="support-icon">
+                <a style="color: crimson; font-size: 4rem; text-decoration: none;" href="/support"><div class="d-flex" data-bs-hover-animate="pulse"><i class="fas fa-user-friends m-auto"></i></div></a>
+                <h6 style="color: crimson;">Remote Support</h6>
+            </div>
     </div>
 </nav>
 
@@ -66,31 +64,11 @@
 
 {% endblock %}
 
-<!--<footer class="footer pt-5">
-    <div class="container-fluid">
-        <div class="d-flex flex-wrap justify-content-between">
-            <div class="col pl-3">
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="/support">Support</a></li>
-                    <li class="list-inline-item"><span>⋅</span></li>
-                    <li class="list-inline-item"><a href="/contact">Contact</a></li>
-                    <li class="list-inline-item"><span></span></li>
-                    <!--<li class="list-inline-item"><a href="#">Terms of &nbsp;Use</a></li>
-                    <li class="list-inline-item"><span>⋅</span></li>
-                    <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div class="d-none d-sm-block flex-wrap pr-0 "><img class="img-fluid" src="/img/Elcor Logo Banner.png"></div>
-            <div class="col pr-1 text-center">Office Address: 611 NW 184th St, Ridgefield, WA 98642Office Phone: 360-887-8777<br></div>
-        </div>
-        <p class="text-muted pb-3">© ElcorInc 2019. All Rights Reserved.</p>
-    </div>
-</footer>-->
 <footer>
     <div class="row">
         <div class="col-sm-6 col-md-4 footer-navigation">
-            <h4><a href="#">ElcorInc<span>  <img src="/img/ELCOR_LOGO_NEW.png" style="height:50px; width:45px;"></span></a></h4>
-            <p class="links"><a href="#">Home</a><strong> <!--</strong><a href="#">Pricing</a><strong>--> · </strong><a href="/about">About</a><strong> · </strong><a href="/contact">Contact</a></p>
+            <h4><a href="/">ElcorInc<span>  <img src="/img/ELCOR_LOGO_NEW.png" style="height:50px; width:45px;"></span></a></h4>
+            <p class="links"><a href="/">Home</a><strong> <!--</strong><a href="#">Pricing</a><strong>--> · </strong><a href="/about">About</a><strong> · </strong><a href="/contact">Contact</a></p>
             <p class="company-name">Elcor Technologies © 1996 </p>
         </div>
         <div class="col-sm-6 col-md-4 footer-contacts">
@@ -107,7 +85,7 @@
         <div class="clearfix"></div>
         <div class="col-md-4 footer-about">
             <h4>About the company</h4>
-            <p> Elcor Technologies contributes 16 years of Project Management, Network Architecture, Network Consultation and IT support experience to the success of your business. </p>
+            <p> Elcor Technologies contributes 23 years of Project Management, Network Architecture, Network Consultation and IT support experience to the success of your business. </p>
         </div>
     </div>
 </footer>

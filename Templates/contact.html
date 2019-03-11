@@ -10,7 +10,7 @@
                     {% with messages = get_flashed_messages() %}
                     {% if messages %}
                     {% for message in messages %}
-                    {% if message=='success' %}
+                    {% if message=='Success, we will respond within at least 24 hours.' %}
                     <div class="alert alert-success" role="alert">{{ message }}</div>
                     {% else %}
                     <div class="alert alert-danger" role="alert">{{ message }}</div>
