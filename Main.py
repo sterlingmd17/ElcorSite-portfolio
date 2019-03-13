@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, session, flash
 from flask_mail import Mail, Message
+from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from flask_recaptcha import ReCaptcha
 from werkzeug.security import check_password_hash
@@ -7,6 +8,7 @@ import requests
 import json
 
 app = Flask(__name__, static_folder='static', static_url_path='')
+CORS(app)
 app.config['DEBUG'] = False
 app.config['MAIL_DEBUG'] = False
 
@@ -59,6 +61,7 @@ def contact():
     return render_template('contact.html')
 
 @app.route('/support', methods=['GET'])
+@cross_origin(origins=["http//:lt.elcorinc.net:8040"])
 def support():
     return render_template('support.html')
 
