@@ -8,6 +8,7 @@ import requests
 import json
 
 app = Flask(__name__, static_folder='static', static_url_path='')
+#cors = CORS(app, resources={r"/support": {"origins": "http://lt.elcorinc.net:8040"}})
 CORS(app)
 app.config['DEBUG'] = False
 app.config['MAIL_DEBUG'] = False
@@ -61,7 +62,7 @@ def contact():
     return render_template('contact.html')
 
 @app.route('/support', methods=['GET'])
-@cross_origin(origins=["http//:lt.elcorinc.net:8040"])
+@cross_origin(origins=["http://lt.elcorinc.net:8040"])
 def support():
     return render_template('support.html')
 
