@@ -1,22 +1,37 @@
 from flask import Flask, request, redirect, render_template, session, flash
+from flask_admin import Admin
 from flask_mail import Mail, Message
 from flask_cors import CORS, cross_origin
-from flask_sqlalchemy import SQLAlchemy
 from flask_recaptcha import ReCaptcha
-from werkzeug.security import check_password_hash
+from flask_login import LoginManager, login_user, logout_user, confirm_login
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 import requests
 import json
+import os
 
 app = Flask(__name__, static_folder='static', static_url_path='')
-#cors = CORS(app, resources={r"/support": {"origins": "http://lt.elcorinc.net:8040"}})
 CORS(app)
-app.config['DEBUG'] = False
+mail = Mail(app)
+recaptcha = ReCaptcha(app=app)
+admin = Admin(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+app.secret_key = os.urandom(25)
+
+app.config['FLASK_ADMIN_SWATCH'] = 'cosmo'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://et_admin:3gx%hR5X@localhost:3306/database'
+app.config['SQLALCHEMY_ECHO'] = True
+db = SQLAlchemy(app)
+app.config['DEBUG'] = True
 app.config['MAIL_DEBUG'] = False
 
-app.config['RECAPTCHA_ENABLED'] = True
-#app.config['SQLALCHEMY_DATABASE_URI']='mysql://elcor:elcor@localhost:3306/elcor'
-#app.config['SQLALCHEMY_ECHO'] = True
+app.config['SECRET_KEY'] = app.secret_key
 
+app.config['RECAPTCHA_ENABLED'] = True
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6LdyFI4UAAAAALqiPp7HSOW4lxrRXB55M-8OWOON'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6LdyFI4UAAAAACkoL9_JHuTE15huwB_BMvHX58aa'
 
@@ -25,9 +40,19 @@ app.config['MAIL_PORT'] = 25
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
-mail = Mail(app)
-app.secret_key= "elcor"
-recaptcha = ReCaptcha(app=app)
+class User(UserMixin, db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(30), unique=True)
+    password = db.Column(db.String(120))
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 @app.route('/', methods=['GET'])
@@ -44,13 +69,19 @@ def reasons():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
-        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data={'secret': '6LdyFI4UAAAAACkoL9_JHuTE15huwB_BMvHX58aa', 'response': request.form['g-recaptcha-response']})
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify',
+                          data={'secret': '6LdyFI4UAAAAACkoL9_JHuTE15huwB_BMvHX58aa',
+                                'response': request.form['g-recaptcha-response']})
         google_response = json.loads(r.text)
-        print(str(google_response))
 
-        if google_response['success'] == True:
-            contact_form = { 'name' : request.form['name'], 'email' : request.form['email'], 'message' : request.form['message']}
-            msg = Message(subject='Contact from website', sender= contact_form['email'], recipients= ['support@elcorinc.net'], body=contact_form['message'])
+        if google_response['success']:
+            contact_form = {'name': request.form['name'],
+                            'email': request.form['email'],
+                            'message': request.form['message']}
+            msg = Message(subject='Contact from website',
+                          sender=contact_form['email'],
+                          recipients=['support@elcorinc.net'],
+                          body=contact_form['message'])
             mail.send(msg)
             flash('Success, we will respond within at least 24 hours.')
             return render_template('contact.html')
@@ -61,28 +92,48 @@ def contact():
 
     return render_template('contact.html')
 
+
 @app.route('/support', methods=['GET'])
 @cross_origin(origins=["http://lt.elcorinc.net:8040"])
 def support():
     return render_template('support.html')
 
+
 @app.route('/about', methods=['GET'])
 def about():
+
     return render_template('about.html')
 
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
 
-# For better contact page.
-#@app.route('/contact2', methods=['GET', 'POST'])
-#def contact2():
-#   if request.method == 'POST':
-#       form_name = request.form['name']
-#        form_email = request.form['email']
-#        form_phone = request.form['phone']
-#        form_call = request.form['call time']
-#        form_comments = request.form['comments']
-#
-#    return render_template("contact.html")
+    #Make google validation into helper function!
+    if request.method == 'POST':
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify',
+                          data={'secret': '6LdyFI4UAAAAACkoL9_JHuTE15huwB_BMvHX58aa',
+                                'response': request.form['g-recaptcha-response']})
+        google_response = json.loads(r.text)
+
+        if google_response['success']:
+            login_form = {'user': request.form['User'],
+                          'password': request.form['Password']}
+
+            #if username and password exist query for the user and validate password (add hash soon)
+            if login_form['user'] and login_form['password']:
+                user = User.query.filter_by(username=login_form['user']).first()
+                print(user)
+
+                if user.password == login_form['password']:
+                    return render_template('internal/success.html')
+                else:
+                    flash('Incorrect password, try again.')
+                    return render_template('internal/fail.html')
+
+            else:
+                return render_template('internal/fail.html')
+
+    return render_template('internal/login.html')
 
 
 if __name__ == '__main__':
