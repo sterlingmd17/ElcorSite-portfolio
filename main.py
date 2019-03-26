@@ -3,7 +3,7 @@ from flask_mail import Mail, Message
 from flask_cors import CORS, cross_origin
 from flask_recaptcha import ReCaptcha
 from flask_login import LoginManager, login_user, logout_user, confirm_login
-from user import User, create_db
+from user import User, db
 import requests
 import json
 import os
@@ -34,7 +34,6 @@ recaptcha = ReCaptcha(app=app)
 #admin = Admin(app)
 login_manager = LoginManager(app)
 app.secret_key = os.urandom(25)
-db = create_db()
 
 
 

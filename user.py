@@ -3,11 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from main import app
 
 
-def create_db():
-    db = SQLAlchemy(app)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://et_admin:3gx%hR5X@localhost:3306/database'
-    app.config['SQLALCHEMY_ECHO'] = True
-    #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
+db = SQLAlchemy(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://et_admin:3gx%hR5X@localhost:3306/database'
+app.config['SQLALCHEMY_ECHO'] = True
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 class User(UserMixin, db.Model):
 
