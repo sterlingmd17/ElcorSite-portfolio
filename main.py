@@ -1,54 +1,42 @@
-from flask import Flask, request, redirect, render_template, session, flash
-from flask_admin import Admin
+from flask import Flask, request, render_template, flash
 from flask_mail import Mail, Message
 from flask_cors import CORS, cross_origin
 from flask_recaptcha import ReCaptcha
 from flask_login import LoginManager, login_user, logout_user, confirm_login
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
+from user import User, create_db
 import requests
 import json
 import os
+from flask_login import UserMixin
+#from Main import db
+
 
 app = Flask(__name__, static_folder='static', static_url_path='')
-CORS(app)
-mail = Mail(app)
-recaptcha = ReCaptcha(app=app)
-admin = Admin(app)
-
-login_manager = LoginManager()
-login_manager.init_app(app)
-
-app.secret_key = os.urandom(25)
 
 app.config['FLASK_ADMIN_SWATCH'] = 'cosmo'
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://et_admin:3gx%hR5X@localhost:3306/database'
 app.config['SQLALCHEMY_ECHO'] = True
-db = SQLAlchemy(app)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['DEBUG'] = True
 app.config['MAIL_DEBUG'] = False
-
 app.config['SECRET_KEY'] = app.secret_key
-
 app.config['RECAPTCHA_ENABLED'] = True
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6LdyFI4UAAAAALqiPp7HSOW4lxrRXB55M-8OWOON'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6LdyFI4UAAAAACkoL9_JHuTE15huwB_BMvHX58aa'
-
 app.config['MAIL_SERVER'] = 'elcorinc-net.mail.protection.outlook.com'
 app.config['MAIL_PORT'] = 25
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
-class User(UserMixin, db.Model):
+CORS(app)
+mail = Mail(app)
+recaptcha = ReCaptcha(app=app)
+#admin = Admin(app)
+login_manager = LoginManager(app)
+app.secret_key = os.urandom(25)
+db = create_db()
 
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(30), unique=True)
-    password = db.Column(db.String(120))
 
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -57,7 +45,7 @@ def load_user(user_id):
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template("index.html")
+    return render_template("//index.html")
 
 
 @app.route('/reasons', methods=['GET'])
@@ -120,18 +108,21 @@ def login():
                           'password': request.form['Password']}
 
             #if username and password exist query for the user and validate password (add hash soon)
-            if login_form['user'] and login_form['password']:
+            if login_form['user']:
                 user = User.query.filter_by(username=login_form['user']).first()
-                print(user)
+
+                if user==None:
+                    flash('Incorrect password or username, please try again.')
+                    return render_template('internal/login.html')
 
                 if user.password == login_form['password']:
                     return render_template('internal/success.html')
-                else:
-                    flash('Incorrect password, try again.')
-                    return render_template('internal/fail.html')
 
-            else:
-                return render_template('internal/fail.html')
+                flash('Incorrect password or username, please try again.')
+                return render_template('internal/login.html')
+
+            flash('No username or password has been entered.')
+            return render_template('internal/login.html')
 
     return render_template('internal/login.html')
 
