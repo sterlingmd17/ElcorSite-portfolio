@@ -6,10 +6,10 @@ Flask-Admin==1.5.2
 Flask-ReCaptcha==0.4.2
 Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
-PyMySQL==0.9.3
+PyMySQL
 SQLAlchemy==1.2.15
 requests==2.18.4
 Flask-Login==0.4.1
 Werkzeug==0.15.1
-pymysql
+
 
