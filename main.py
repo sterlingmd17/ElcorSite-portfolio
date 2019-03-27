@@ -24,6 +24,7 @@ app.config['MAIL_USE_SSL'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://3gx%hR5X:et_admin@elcordatabaseserver.database.windows.net:1433/ElcorWebsiteDatabase'
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SQLALCHEMY_POOL_RECYCLE'] = 3600
 
 db = SQLAlchemy(app)
 
