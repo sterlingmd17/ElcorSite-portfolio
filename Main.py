@@ -11,9 +11,6 @@ import os
 app = Flask(__name__, static_folder='static', static_url_path='')
 
 app.config['FLASK_ADMIN_SWATCH'] = 'cosmo'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://et_admin:3gx%hR5X@localhost:3306/database'
-app.config['SQLALCHEMY_ECHO'] = True
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['DEBUG'] = True
 app.config['MAIL_DEBUG'] = False
 app.config['SECRET_KEY'] = app.secret_key
