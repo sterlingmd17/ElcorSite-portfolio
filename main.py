@@ -11,7 +11,7 @@ import os
 app = Flask(__name__, static_folder='static', static_url_path='')
 
 app.config['FLASK_ADMIN_SWATCH'] = 'cosmo'
-app.config['DEBUG'] = True
+app.config['DEBUG'] = False
 app.config['MAIL_DEBUG'] = False
 app.config['SECRET_KEY'] = app.secret_key
 app.config['RECAPTCHA_ENABLED'] = True
