@@ -1,15 +1,12 @@
 from flask import Flask, request, render_template, flash
 from flask_mail import Mail, Message
 from flask_cors import CORS, cross_origin
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin
 from flask_recaptcha import ReCaptcha
-from flask_login import LoginManager, login_user, logout_user, confirm_login
-from user import User, db
 import requests
 import json
 import os
-from flask_login import UserMixin
-#from Main import db
-
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 
@@ -27,14 +24,29 @@ app.config['MAIL_SERVER'] = 'elcorinc-net.mail.protection.outlook.com'
 app.config['MAIL_PORT'] = 25
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://et_admin:3gx%hR5X@localhost:3306/database'
+app.config['SQLALCHEMY_ECHO'] = True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
+db = SQLAlchemy(app)
 
 CORS(app)
+
 mail = Mail(app)
 recaptcha = ReCaptcha(app=app)
 #admin = Admin(app)
 login_manager = LoginManager(app)
 app.secret_key = os.urandom(25)
 
+class User(db.Model, UserMixin):
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(30), unique=True)
+    password = db.Column(db.String(120))
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
 
 
 @login_manager.user_loader
@@ -108,13 +120,13 @@ def login():
 
             #if username and password exist query for the user and validate password (add hash soon)
             if login_form['user']:
-                user = User.query.filter_by(username=login_form['user']).first()
+                user_ob = User.query.filter_by(username=login_form['user']).first()
 
-                if user==None:
+                if user_ob == None:
                     flash('Incorrect password or username, please try again.')
                     return render_template('internal/login.html')
 
-                if user.password == login_form['password']:
+                if user_ob.password == login_form['password']:
                     return render_template('internal/success.html')
 
                 flash('Incorrect password or username, please try again.')
@@ -128,3 +140,4 @@ def login():
 
 if __name__ == '__main__':
     app.run()
+
