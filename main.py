@@ -21,12 +21,13 @@ app.config['MAIL_SERVER'] = 'elcorinc-net.mail.protection.outlook.com'
 app.config['MAIL_PORT'] = 25
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://3gx%hR5X:et_admin@elcordatabaseserver.database.windows.net:1433/ElcorWebsiteDatabase'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://et_admin:3gx%hR5X@elcordatabaseserver.database.windows.net:1433/ElcorWebsiteDatabase'
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_POOL_TIMEOUT'] = 5000
 
 db = SQLAlchemy(app)
+
 
 CORS(app)
 
@@ -138,7 +139,7 @@ def login():
 
 
 if __name__ == '__main__':
-    user = User('Sterling', 'derp')
+    user = User('sterling', 'derp')
     db.session.add(user)
     db.session.commit()
     db.create_all()
