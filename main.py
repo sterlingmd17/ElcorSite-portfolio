@@ -21,7 +21,7 @@ app.config['MAIL_SERVER'] = 'elcorinc-net.mail.protection.outlook.com'
 app.config['MAIL_PORT'] = 25
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://et_admin:3gx%hR5X@localhost:3306/database'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://et_admin:3gx%hR5X@elcordatabaseserver.database.windows.net:1433/ElcorWebsiteDatabase'
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
@@ -48,6 +48,7 @@ class User(db.Model, UserMixin):
 
 @login_manager.user_loader
 def load_user(user_id):
+
     return User.query.get(int(user_id))
 
 
@@ -136,5 +137,9 @@ def login():
 
 
 if __name__ == '__main__':
+    user = User('Sterling', 'derp')
+    db.session.add(user)
+    db.session.commit()
+    db.create_all()
     app.run()
 
