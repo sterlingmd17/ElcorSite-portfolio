@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="contact-clean ">
+                <form method="post" action="/login" class="border rounded-0 shadow">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">{{ message }}</div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    <h2 class="text-center">Login</h2>
+                    <div class="form-group"><input class="form-control" type="text" name="User" placeholder="Username"></div>
+                    <div class="form-group"><input class="form-control" type="password" name="Password" placeholder="Password"></div>
+                    <div class="g-recaptcha" name="g-recaptcha-response" data-sitekey="6LdyFI4UAAAAALqiPp7HSOW4lxrRXB55M-8OWOON"></div>
+                    <div class="form-group"><button class="btn btn-primary" type="submit">Submit</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
