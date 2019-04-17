@@ -37,15 +37,15 @@ recaptcha = ReCaptcha(app=app)
 login_manager = LoginManager(app)
 app.secret_key = os.urandom(25)
 
-class User(db.Model, UserMixin):
+# class User(db.Model, UserMixin):
 
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(30), unique=True)
-    password = db.Column(db.String(120))
-
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
+#    id = db.Column(db.Integer, primary_key=True)
+#    username = db.Column(db.String(30), unique=True)
+#    password = db.Column(db.String(120))
+#
+#   def __init__(self, username, password):
+#        self.username = username
+#        self.password = password
 
 
 @login_manager.user_loader
@@ -104,44 +104,40 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-
-    #Make google validation into helper function!
-    if request.method == 'POST':
-        r = requests.post('https://www.google.com/recaptcha/api/siteverify',
-                          data={'secret': '6LdyFI4UAAAAACkoL9_JHuTE15huwB_BMvHX58aa',
-                                'response': request.form['g-recaptcha-response']})
-        google_response = json.loads(r.text)
-
-        if google_response['success']:
-            login_form = {'user': request.form['User'],
-                          'password': request.form['Password']}
-
-            #if username and password exist query for the user and validate password (add hash soon)
-            if login_form['user']:
-                user_ob = User.query.filter_by(username=login_form['user']).first()
-
-                if user_ob == None:
-                    flash('Incorrect password or username, please try again.')
-                    return render_template('internal/login.html')
-
-                if user_ob.password == login_form['password']:
-                    return render_template('internal/success.html')
-
-                flash('Incorrect password or username, please try again.')
-                return render_template('internal/login.html')
-
-            flash('No username or password has been entered.')
-            return render_template('internal/login.html')
-
-    return render_template('internal/login.html')
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#
+#     #Make google validation into helper function!
+#     if request.method == 'POST':
+#         r = requests.post('https://www.google.com/recaptcha/api/siteverify',
+#                          data={'secret': '6LdyFI4UAAAAACkoL9_JHuTE15huwB_BMvHX58aa',
+#                               'response': request.form['g-recaptcha-response']})
+#        google_response = json.loads(r.text)
+#
+#         if google_response['success']:
+#           login_form = {'user': request.form['User'],
+#                           'password': request.form['Password']}
+#
+#             #if username and password exist query for the user and validate password (add hash soon)
+#             if login_form['user']:
+#                 user_ob = User.query.filter_by(username=login_form['user']).first()
+#
+#                 if user_ob == None:
+#                     flash('Incorrect password or username, please try again.')
+#                     return render_template('internal/login.html')
+#
+#                 if user_ob.password == login_form['password']:
+#                     return render_template('internal/success.html')
+#
+#                 flash('Incorrect password or username, please try again.')
+#                 return render_template('internal/login.html')
+#
+#             flash('No username or password has been entered.')
+#             return render_template('internal/login.html')
+#
+#     return render_template('internal/login.html')
 
 
 if __name__ == '__main__':
-    user = User('sterling', 'derp')
-    db.session.add(user)
-    db.session.commit()
-    db.create_all()
     app.run()
 
