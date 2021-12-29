@@ -69,7 +69,7 @@ def reasons():
 def contact():
     if request.method == 'POST':
         r = requests.post('https://www.google.com/recaptcha/api/siteverify',
-                          data={'secret': '6LdyFI4UAAAAACkoL9_JHuTE15huwB_BMvHX58aa',
+                          data={'secret': '***********',
                                 'response': request.form['g-recaptcha-response']})
         google_response = json.loads(r.text)
 
