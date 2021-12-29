@@ -1,7 +1,7 @@
 Flask==1.0.2
-Jinja2==2.10
+jinja2>=2.11.3
 Flask-Mail==0.9.1
-Flask-Cors==3.0.7
+Flask-Cors>=3.0.9
 Flask-Admin==1.5.2
 Flask-ReCaptcha==0.4.2
 Flask-SQLAlchemy==2.3.2
