@@ -7,8 +7,8 @@ Flask-ReCaptcha==0.4.2
 Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
 PyMySQL
-SQLAlchemy==1.2.15
-requests==2.18.4
+SQLAlchemy>=1.3.0
+requests>=2.20.0
 Flask-Login==0.4.1
 Werkzeug==0.15.3
 
